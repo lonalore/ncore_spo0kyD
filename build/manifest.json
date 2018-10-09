@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+  "name": "nCore - SpOoKy DaYz 2k17",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": {
+      "19": "images/icon19.png",
+      "38": "images/icon38.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ncore.cc/*",
+        "http://ncore.cc/*"
+      ],
+      "js": [
+        "vendor/jquery.min.js",
+        "extension.js"
+      ]
+    }
+  ]
+}
