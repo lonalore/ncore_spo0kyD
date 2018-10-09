@@ -3,12 +3,11 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    './assets/js/background': './src/background',
     './assets/js/content': './src/content',
     './assets/js/popup': './src/popup'
   },
   output: {
-    path: path.resolve(__dirname, 'extension'),
+    path: path.resolve(__dirname, 'build'),
     filename: '[name].js'
   },
   plugins: [
@@ -37,7 +36,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader?sourceMap'
+        use: [
+          {loader: "style-loader"},
+          {loader: "css-loader"}
+        ]
       },
       {
         test: /\.json$/,
