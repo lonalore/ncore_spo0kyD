@@ -1,18 +1,18 @@
 {
   "manifest_version": 2,
-  "name": "nCore - SpOoKy DaYz 2k17",
-  "version": "1.0",
+  "name": "nCore - SpOoKy DaYz",
+  "version": "1.0.0",
   "browser_action": {
     "default_icon": {
-      "19": "images/icon19.png",
-      "38": "images/icon38.png"
+      "19": "assets/images/icon19.png",
+      "38": "assets/images/icon38.png"
     },
     "default_popup": "popup.html"
   },
   "icons": {
-    "16": "images/icon16.png",
-    "48": "images/icon48.png",
-    "128": "images/icon128.png"
+    "16": "assets/images/icon16.png",
+    "48": "assets/images/icon48.png",
+    "128": "assets/images/icon128.png"
   },
   "content_scripts": [
     {
@@ -21,9 +21,11 @@
         "http://ncore.cc/*"
       ],
       "js": [
-        "vendor/jquery.min.js",
         "assets/js/content.js"
       ]
     }
+  ],
+  "permissions": [
+    "storage"
   ]
 }

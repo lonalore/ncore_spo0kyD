@@ -1,5 +1,6 @@
 import jQuery from 'jquery';
 import Storage from './includes/storage';
+import Config from "./includes/config";
 
 /**
  * Class Content.
@@ -11,6 +12,8 @@ export default class Content {
    */
   constructor() {
     this.browser = chrome || browser;
+    this.storage = new Storage('local');
+    this.config = new Config();
   }
 
   /**
@@ -21,10 +24,16 @@ export default class Content {
       return;
     }
 
-    this.run();
+    this.initListener();
+    this.initPageReload();
   }
 
-  run() {
+  /**
+   * Init the listener.
+   */
+  initListener() {
+    let _this = this;
+
     setInterval(function () {
       let $spookies = jQuery('#spo0kyD img');
 
@@ -59,8 +68,7 @@ export default class Content {
                 }).text();
 
                 if (text) {
-                  // console.log(text);
-                  // TODO storage
+                  _this.store(text);
                 }
 
                 let removeOffset = $remove.offset();
@@ -79,6 +87,45 @@ export default class Content {
         });
       }
     }, 6000);
+  }
+
+  /**
+   * Init page-reloader.
+   */
+  initPageReload() {
+    let _this = this;
+
+    setInterval(function () {
+      _this.config.getAll(config => {
+        if (config['reloadWebsite'] === true) {
+          window.location.reload(true);
+        }
+      });
+    }, 300000);
+  }
+
+  /**
+   * Store the text from captured figure.
+   *
+   * @param text
+   */
+  store(text) {
+    let _this = this;
+
+    _this.storage.get('captured-figures', false, result => {
+      let history = {};
+
+      if (result !== false) {
+        for (let [ts, txt] of Object.entries(JSON.parse(result))) {
+          history[ts] = txt;
+        }
+      }
+
+      let ts = Math.round(+new Date() / 1000);
+      history[ts] = text;
+
+      _this.storage.set('captured-figures', JSON.stringify(history));
+    });
   }
 
 }
