@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -16,7 +17,11 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
-    })
+    }),
+    new CopyWebpackPlugin([
+      {from:'./src/assets/images',to:'./assets/images'},
+      {from:'./src/assets/css',to:'./assets/css'}
+    ]),
   ],
   module: {
     loaders: [
