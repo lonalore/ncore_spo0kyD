@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SpOoKy DaYz</title>
+</head>
+<body>
+
+<div class="main-container">
+  <div class="main-content">
+    <div class="tab-content" id="main-tabs">
+      <div class="tab-pane fade show active" id="main-tabs-1" role="tabpanel" aria-labelledby="main-tabs-1">
+        <fieldset class="form-group">
+          <legend class="form-text">Captured figures</legend>
+
+          <div id="capturedFigures" class="list-group">
+            <!-- Placeholder -->
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="tab-pane fade settings-container" id="main-tabs-2" role="tabpanel" aria-labelledby="main-tabs-2">
+        <fieldset class="form-group">
+          <legend class="form-text">Settings</legend>
+
+          <div class="list-group">
+            <label class="list-group-item list-group-item-action flex-column align-items-start">
+              <span class="d-flex w-100 justify-content-between">
+                <span class="setting-label">Reload page</span>
+                <span class="switch-container pull-right">
+                  <input id="reloadWebsite" class="toggle-input toggle-input-round-flat" type="checkbox"/>
+                  <span class="toggle-switch"></span>
+                </span>
+              </span>
+              <small class="text-muted">
+                Reload page after every 5 minutes.
+              </small>
+            </label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <ul class="nav nav-pills no-gutters" id="main-tabs-nav" role="tablist">
+      <li class="nav-item col-6">
+        <a class="nav-link active" id="main-tabs-1-tab" data-toggle="pill" href="#main-tabs-1" role="tab" aria-controls="main-tabs-1" aria-selected="true">
+          <i class="fa fa-database" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li class="nav-item col-6">
+        <a class="nav-link" id="main-tabs-2-tab" data-toggle="pill" href="#main-tabs-2" role="tab" aria-controls="main-tabs-2" aria-selected="false">
+          <i class="fa fa-cog" aria-hidden="true"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<link type="text/css" rel="stylesheet" href="assets/css/popup.css" media="all" />
+<script src="assets/js/popup.js"></script>
+
+</body>
+</html>

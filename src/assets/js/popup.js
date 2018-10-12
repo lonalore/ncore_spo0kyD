@@ -21,7 +21,7 @@ export default class Popup {
   }
 
   /**
-   * Init.
+   * Initializes Popup,js functions.
    */
   init() {
     if (typeof this.browser === "undefined") {
@@ -32,6 +32,9 @@ export default class Popup {
     this.initSettingsForm();
   }
 
+  /**
+   * Initializes "Captured figures" history list.
+   */
   initCapturedFigures() {
     let _this = this;
 
@@ -62,6 +65,9 @@ export default class Popup {
     });
   }
 
+  /**
+   * Initializes Settings form functions.
+   */
   initSettingsForm() {
     let _this = this;
 

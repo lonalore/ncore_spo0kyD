@@ -1,6 +1,7 @@
-import jQuery from 'jquery';
 import Storage from './includes/storage';
 import Config from "./includes/config";
+
+import jQuery from 'jquery';
 
 /**
  * Class Content.
@@ -17,7 +18,7 @@ export default class Content {
   }
 
   /**
-   * Init.
+   * Initializes Content.js functions.
    */
   init() {
     if (typeof this.browser === "undefined") {
@@ -29,7 +30,7 @@ export default class Content {
   }
 
   /**
-   * Init the listener.
+   * Initializes the listener.
    */
   initListener() {
     let _this = this;

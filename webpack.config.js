@@ -4,8 +4,8 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    './assets/js/content': './src/content',
-    './assets/js/popup': './src/popup'
+    './assets/js/content': './src/assets/js/content',
+    './assets/js/popup': './src/assets/js/popup'
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -20,7 +20,9 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {from:'./src/assets/images',to:'./assets/images'},
-      {from:'./src/assets/css',to:'./assets/css'}
+      {from:'./src/assets/css',to:'./assets/css'},
+      {from:'./src/popup.html',to:'./popup.html'},
+      {from:'./src/manifest.json',to:'./manifest.json'}
     ]),
   ],
   module: {
