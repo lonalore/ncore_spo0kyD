@@ -44,7 +44,7 @@ export default class Popup {
     _this.storage.get('captured-figures', false, result => {
       if (result === false) {
         let $markup = jQuery('<div class="empty-middle"></div>');
-        $markup.text("No figure has been captured yet... please visit ncore.cc website first, then log into it during Spooky Dayz event is active.");
+        $markup.text("No figure has been captured yet... please visit ncore.cc website first, then log into it during Spooky Dayz event is active. If a figure gets caught, it will appear here...");
         $markup.appendTo($list);
         return;
       }
