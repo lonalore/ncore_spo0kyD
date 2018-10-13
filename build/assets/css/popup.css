@@ -56,12 +56,13 @@ fieldset legend.form-text {
   width: 100%;
 }
 .main-container .main-content .empty-middle {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-style: italic;
   font-weight: bold;
   text-align: center;
-  margin-top: 150px;
+  margin-top: 130px;
   color: #e07445;
+  line-height: 1.5rem;
 }
 /* Links */
 
