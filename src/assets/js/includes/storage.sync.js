@@ -36,6 +36,26 @@ export default class StorageSync {
 
   /**
    * @param key
+   * @param value
+   *
+   * @returns {Promise<any>}
+   */
+  setPromised(key, value) {
+    let _this = this;
+
+    let data = {
+      [key]: value
+    };
+
+    return new Promise(function (resolve) {
+      _this.browser.storage.sync.set(data, result => {
+        resolve(result);
+      });
+    });
+  }
+
+  /**
+   * @param key
    * @param def
    * @param callback
    */
@@ -53,6 +73,23 @@ export default class StorageSync {
 
   /**
    * @param key
+   * @param def
+   *
+   * @returns {Promise<any>}
+   */
+  getPromised(key, def) {
+    let _this = this;
+
+    return new Promise(function (resolve) {
+      _this.browser.storage.sync.get(key, result => {
+        let value = result[key] || def;
+        resolve(value);
+      });
+    });
+  }
+
+  /**
+   * @param key
    * @param callback
    */
   remove(key, callback) {
@@ -62,6 +99,22 @@ export default class StorageSync {
       if (typeof callback === "function") {
         callback(result);
       }
+    });
+  }
+
+  /**
+   * @param key
+   * @param def
+   *
+   * @returns {Promise<any>}
+   */
+  removePromised(key, def) {
+    let _this = this;
+
+    return new Promise(function (resolve) {
+      _this.browser.storage.sync.remove(key, result => {
+        resolve(result);
+      });
     });
   }
 

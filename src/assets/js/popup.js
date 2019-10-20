@@ -72,17 +72,27 @@ export default class Popup {
     let _this = this;
 
     let $reloadWebsite = jQuery('#reloadWebsite');
+    let $captchaAccessToken = jQuery('#captchaAccessToken');
 
     // Set default values on form elements.
     _this.config.getAll(config => {
       if (config['reloadWebsite'] === true) {
         $reloadWebsite.prop('checked', true);
       }
+
+      if (config['captchaAccessToken'] !== "") {
+        $captchaAccessToken.val(config['captchaAccessToken']);
+      }
     });
 
     $reloadWebsite.on('change', () => {
       let state = $reloadWebsite.is(':checked');
       _this.config.set('reloadWebsite', state);
+    });
+
+    $captchaAccessToken.on('keyup', () => {
+      let value = $captchaAccessToken.val();
+      _this.config.set('captchaAccessToken', value);
     });
   }
 
