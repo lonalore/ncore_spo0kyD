@@ -13387,7 +13387,7 @@ var Content = function () {
 
       setInterval(function () {
         _this.capture();
-      }, 6000);
+      }, 3000);
     }
 
     /**
@@ -13401,7 +13401,9 @@ var Content = function () {
 
       setInterval(function () {
         _this.config.getAll(function (config) {
-          if (config['reloadWebsite'] === true) {
+          var $spooky = (0, _jquery2.default)('#spo0kyD');
+
+          if (config['reloadWebsite'] === true && $spooky.length === 0) {
             window.location.reload(true);
           }
         });
@@ -13436,7 +13438,7 @@ var Content = function () {
 
         // Wait few seconds to get result text.
         setTimeout(function () {
-          _this.captured();
+          _this.captured($spooky);
         }, 3000);
       }
     }

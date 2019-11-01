@@ -39,7 +39,7 @@ export default class Content {
 
     setInterval(function () {
       _this.capture();
-    }, 6000);
+    }, 3000);
   }
 
   /**
@@ -50,7 +50,9 @@ export default class Content {
 
     setInterval(function () {
       _this.config.getAll(config => {
-        if (config['reloadWebsite'] === true) {
+        let $spooky = jQuery('#spo0kyD');
+
+        if (config['reloadWebsite'] === true && $spooky.length === 0) {
           window.location.reload(true);
         }
       });
@@ -82,7 +84,7 @@ export default class Content {
 
       // Wait few seconds to get result text.
       setTimeout(function () {
-        _this.captured();
+        _this.captured($spooky);
       }, 3000);
     }
   }
