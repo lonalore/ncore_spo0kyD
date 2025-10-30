@@ -4,29 +4,51 @@
 
   const savedUUIDs = new Set();
   let lastCaptchaAlert = 0;
+
+  // Settings cache with defaults; kept in sync with popup
+  let spookySettings = { soundOnNewItem: true, soundOnCaptcha: true };
+  try {
+    chrome.storage.local.get({ spookySettings }, (data) => {
+      if (data && data.spookySettings) {
+        spookySettings = { ...spookySettings, ...data.spookySettings };
+      }
+    });
+    chrome.storage.onChanged.addListener((changes, area) => {
+      if (area === 'local' && changes.spookySettings) {
+        const nv = changes.spookySettings.newValue || {};
+        spookySettings = { ...spookySettings, ...nv };
+      }
+    });
+  } catch {}
+
   const playCaptchaAlert = () => {
+    if (!spookySettings.soundOnCaptcha) {
+      return;
+    }
     try {
-      const Ctx = window.AudioContext || window.webkitAudioContext;
-      const ctx = new Ctx();
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'sine';
-      o.frequency.value = 880; // A5 tone
-      o.connect(g);
-      g.connect(ctx.destination);
-      g.gain.setValueAtTime(0.0001, ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.3, ctx.currentTime + 0.02);
-      o.start();
-      o.stop(ctx.currentTime + 0.4);
-      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.4);
+      const mp3 = 'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3';
+      (new Audio(mp3)).play().catch((e) => {
+        console.error(e);
+      });
     } catch (e) {
-      // Fallback using HTMLAudioElement with data URI (may be blocked by autoplay policies)
-      try {
-        const a = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABYAAAABAAAABAAAAAEAAAABAQAA');
-        a.play().catch(() => {});
-      } catch {}
+      console.error(e);
     }
   };
+
+  const playNewItemSound = () => {
+    if (!spookySettings.soundOnNewItem) {
+      return;
+    }
+    try {
+      const mp3 = 'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3';
+      (new Audio(mp3)).play().catch((e) => {
+        console.error(e);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const detectCaptchaAndAlert = (container) => {
     // If text not present yet but a reCAPTCHA element exists in DOM, raise an audible alert (debounced)
     const hasText = !!extractLeadText(container);
@@ -166,6 +188,7 @@
         } else {
           container.dataset.spookySaved = '1';
         }
+        playNewItemSound();
         await clickRemoveMessageIfExists(container);
       }
     });
@@ -203,6 +226,7 @@
       } else {
         container.dataset.spookySaved = '1';
       }
+      playNewItemSound();
       await clickRemoveMessageIfExists(container);
     }
   };

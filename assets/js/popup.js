@@ -5,6 +5,10 @@ const clearBtn = document.getElementById("clear");
 const exportBtn = document.getElementById("exportCsv");
 const countEl = document.getElementById("count");
 
+const optSoundNew = document.getElementById("optSoundNew");
+const optSoundCaptcha = document.getElementById("optSoundCaptcha");
+const defaultSettings = { soundOnNewItem: true, soundOnCaptcha: true };
+
 const formatTime = (ts) => {
   try {
     return new Date(ts).toLocaleString();
@@ -117,6 +121,29 @@ const triggerDownload = (filename, content, type = "text/csv;charset=utf-8") => 
   }, 0);
 };
 
+const applySettingsUI = (s) => {
+  if (optSoundNew) optSoundNew.checked = !!s.soundOnNewItem;
+  if (optSoundCaptcha) optSoundCaptcha.checked = !!s.soundOnCaptcha;
+};
+
+const loadSettings = () => {
+  chrome.storage.local.get({ spookySettings: defaultSettings }, (data) => {
+    const s = data.spookySettings || defaultSettings;
+    applySettingsUI(s);
+  });
+};
+
+const persistSettings = () => {
+  const s = {
+    soundOnNewItem: !!(optSoundNew && optSoundNew.checked),
+    soundOnCaptcha: !!(optSoundCaptcha && optSoundCaptcha.checked)
+  };
+  chrome.storage.local.set({ spookySettings: s });
+};
+
+if (optSoundNew) optSoundNew.addEventListener("change", persistSettings);
+if (optSoundCaptcha) optSoundCaptcha.addEventListener("change", persistSettings);
+
 const load = () => {
   chrome.storage.local.get({ spookyItems: [] }, (data) => {
     render(data.spookyItems);
@@ -141,7 +168,22 @@ clearBtn.addEventListener("click", () => {
   }
 });
 
-document.addEventListener("DOMContentLoaded", load);
+document.addEventListener("DOMContentLoaded", () => {
+  loadSettings();
+  load();
+
+  const toggleSettingsBtn = document.getElementById("toggleSettings");
+  const settingsDiv = document.getElementById("settings");
+  if (toggleSettingsBtn && settingsDiv) {
+    toggleSettingsBtn.addEventListener("click", () => {
+      if (settingsDiv.style.display === "none" || !settingsDiv.style.display) {
+        settingsDiv.style.display = "block";
+      } else {
+        settingsDiv.style.display = "none";
+      }
+    });
+  }
+});
 
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === "local" && changes.spookyItems) {
