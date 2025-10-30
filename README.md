@@ -1,0 +1,34 @@
+# nCore SpOoKy DaYz
+
+This browser extension is designed for interacting with the nCore platform during "SpOoKy DaYz" events.  
+It automates and enhances the user experience by:
+
+- Watching for special event popups (`#spo0kyD` container).
+- Extracting text messages and unique identifiers (UUIDs).
+- Clicking event images automatically (simulating human-like behavior with small jitter).
+- Saving collected data locally using Chrome storage with deduplication and maintenance.
+- Providing reliable observation using MutationObserver with polling fallback.
+
+## Features
+
+- Automatic element visibility handling.
+- Human-like randomized click positions.
+- Popup content monitoring and text extraction.
+- Deduplication of collected messages by UUID.
+- Local storage of up to 200 recent entries.
+
+## TODO
+
+- Captcha handling: occasionally nCore displays a captcha to verify the user is not a script.
+
+## Technical details
+
+- Written in JavaScript.
+- Uses `MutationObserver` to detect popup creation and changes.
+- Falls back to polling when observers are not triggered.
+- Uses Chrome extension APIs for persistent storage.
+
+## Disclaimer
+
+This project is for educational purposes only. It is not affiliated with or endorsed by nCore.  
+Use at your own risk.
