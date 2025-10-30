@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>nCore - SpOoKy DaYz</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 12px; width: 340px; }
+    h1 { font-size: 16px; margin: 0 0 10px; }
+    .controls { display: flex; gap: 8px; margin-bottom: 10px; }
+    button { cursor: pointer; }
+    .item { border: 1px solid #ddd; border-radius: 8px; padding: 8px; margin-bottom: 8px; display: grid; grid-template-columns: 64px 1fr; gap: 8px; align-items: start; }
+    .thumb { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; background: #f3f3f3; }
+    .meta { font-size: 11px; color: #666; margin-top: 4px; }
+    .empty { color: #888; font-style: italic; }
+    .message { white-space: pre-wrap; font-size: 13px; }
+  </style>
+</head>
+<body>
+<h1>Captured items</h1>
+<div class="controls">
+  <button id="refresh">Update</button>
+  <button id="clear">Delete all</button>
+</div>
+<div id="list"></div>
+<script src="assets/js/popup.js"></script>
+</body>
+</html>
