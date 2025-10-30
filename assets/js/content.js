@@ -64,7 +64,7 @@
         }
       }
       // Maintenance
-      chrome.storage.local.set({ spookyItems: items.slice(0, 200) });
+      chrome.storage.local.set({ spookyItems: items.slice(0, 2000) });
     });
   };
 
