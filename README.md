@@ -27,6 +27,7 @@ When active, the extension will automatically detect SpOoKy DaYz popups, extract
 - Popup content monitoring and text extraction.
 - Deduplication of collected messages by UUID.
 - Local storage of up to 200 recent entries.
+- Export captured data as CSV (including timestamp, UUID, message, image URL, and page URL).
 
 ## TODO
 
