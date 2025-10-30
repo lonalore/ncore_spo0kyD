@@ -3,6 +3,42 @@
   const POLL_MS = 3000;
 
   const savedUUIDs = new Set();
+  let lastCaptchaAlert = 0;
+  const playCaptchaAlert = () => {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      const ctx = new Ctx();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'sine';
+      o.frequency.value = 880; // A5 tone
+      o.connect(g);
+      g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.0001, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.3, ctx.currentTime + 0.02);
+      o.start();
+      o.stop(ctx.currentTime + 0.4);
+      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.4);
+    } catch (e) {
+      // Fallback using HTMLAudioElement with data URI (may be blocked by autoplay policies)
+      try {
+        const a = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABYAAAABAAAABAAAAAEAAAABAQAA');
+        a.play().catch(() => {});
+      } catch {}
+    }
+  };
+  const detectCaptchaAndAlert = (container) => {
+    // If text not present yet but a reCAPTCHA element exists in DOM, raise an audible alert (debounced)
+    const hasText = !!extractLeadText(container);
+    const hasCaptcha = !!(document.querySelector('div.g-recaptcha') || document.querySelector('.g-recaptcha') || document.querySelector('iframe[src*="recaptcha"]'));
+    if (!hasText && hasCaptcha) {
+      const now = Date.now();
+      if (now - lastCaptchaAlert > 10000) { // debounce 10s
+        lastCaptchaAlert = now;
+        playCaptchaAlert();
+      }
+    }
+  };
 
   const rand = (min, max) => Math.random() * (max - min) + min;
 
@@ -147,6 +183,9 @@
     if (img && !processedMarker(img)) {
       if (!container.dataset.spookyImgUrl) { container.dataset.spookyImgUrl = img.currentSrc || img.src || ''; }
       await humanClick(img);
+      // Give the DOM a moment to update, then check for captcha
+      await new Promise(r => setTimeout(r, rand(250, 600)));
+      detectCaptchaAndAlert(container);
       markProcessed(img);
     }
 

@@ -24,6 +24,7 @@ When active, the extension will automatically detect SpOoKy DaYz popups, extract
 
 - Automatic element visibility handling.
 - Human-like randomized click positions.
+- Audible captcha detection alert: plays a short sound when a Google reCAPTCHA is detected after a human-like click (debounced).
 - Popup content monitoring and text extraction.
 - Deduplication of collected messages by UUID.
 - Local storage of up to 2000 recent entries.
