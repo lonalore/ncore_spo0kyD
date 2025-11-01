@@ -1,4 +1,4 @@
-# nCore SpOoKy DaYz
+# nCore - Halloween
 
 This browser extension is designed for interacting with the nCore platform during "SpOoKy DaYz" events.  
 It automates and enhances the user experience by:
